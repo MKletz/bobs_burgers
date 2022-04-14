@@ -1,24 +1,12 @@
 ---
-- name: Add printer vlan
+- name: Add IP to interface
   hosts: "{{ HOSTS | default('cisco') }}"
   gather_facts: false
-  vars:
-    printer_vlan: 20
   tasks:
-    - name: Add Printer vlans
-      cisco.ios.ios_vlans:
-        config:
-        - name: printers
-          vlan_id: "{{ printer_vlan }}"
-          state: active
-          shutdown: disabled
-        state: merged
-
-    - name: Configure Port
-      cisco.ios.ios_l2_interfaces:
+    - name: Configure interface IP
+      cisco.ios.ios_l3_interfaces:
         config:
         - name: "{{ switch_port }}"
-          mode: access
-          access:
-            vlan: "{{ printer_vlan }}"
+          ipv4:
+          - address: "{{ port_ip }}"
         state: merged
