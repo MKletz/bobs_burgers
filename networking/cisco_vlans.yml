@@ -1,12 +1,12 @@
 ---
-- name: Merge provided configuration with device configuration
-  hosts: cisco
+- name: Add printer vlan
+  hosts: "{{ HOSTS | default('cisco') }}"
   gather_facts: false
   tasks:
-    - name: create vlans
+    - name: Printer vlans
       cisco.ios.ios_vlans:
         config:
-        - name: test
+        - name: printer
           vlan_id: 20
           state: active
           shutdown: disabled
