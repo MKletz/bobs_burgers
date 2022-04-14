@@ -9,7 +9,7 @@
       cisco.ios.ios_vlans:
         config:
         - name: printers
-          vlan_id: {{ printer_vlan }}
+          vlan_id: "{{ printer_vlan }}"
           state: active
           shutdown: disabled
         state: merged
@@ -20,5 +20,5 @@
         - name: "{{ port }}"
           mode: access
           access:
-            vlan: {{ printer_vlan }}
+            vlan: "{{ printer_vlan }}"
         state: merged
